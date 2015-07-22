@@ -9,7 +9,7 @@ using namespace std;
 int main()
 {
 	Mat img = imread("test.jpg", CV_LOAD_IMAGE_COLOR);
-	
+
 	if(img.empty())
 	{
 		cout<<"Image cannot be loaded."<<endl;
@@ -17,12 +17,12 @@ int main()
 	}
 
 	//increase the brightness by 75 units
-	Mat imgH = img + Scalar(75,75,75);
-	//img.convertTo(imgH,-1,1,75);
+	Mat imgH;// = img + Scalar(75,75,75);
+	img.convertTo(imgH,-1,2,0);
 
 	//decrease brightness by 75 units
-	Mat imgL = img + Scalar(-50,-50,-50);
-	//img.convertTo(img, -1,1,-50);
+	Mat imgL;// = img + Scalar(-50,-50,-50);
+	img.convertTo(imgL, -1,0.5,-5);
 
 	namedWindow("Original Image", CV_WINDOW_AUTOSIZE);
 	namedWindow("High Brightness", CV_WINDOW_AUTOSIZE);
