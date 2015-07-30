@@ -1,12 +1,12 @@
 //header files
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
-#include <iostream>
+//#include <iostream>
 #include <stdio.h>
 
 //using namespaces
 using namespace cv;
-using namespace std;
+//using namespace std;
 
 int main()
 {
