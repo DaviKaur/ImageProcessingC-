@@ -13,6 +13,7 @@ int main()
 	//create two empty windows
 	namedWindow("Original Image", CV_WINDOW_AUTOSIZE);
 	namedWindow("Smoothed Image", CV_WINDOW_AUTOSIZE);
+	namedWindow("Gaussian Smooth", CV_WINDOW_AUTOSIZE);
 
 	//Load an image from file
 	Mat src = imread("test.jpg");
@@ -20,7 +21,7 @@ int main()
 	//show the loaded image
 	imshow("Original Image", src);
 
-	Mat dst;
+	Mat dst, gdst;
 	char zBuffer[35];
 
 	for(int i=1;i<31;i=i+2)
@@ -31,11 +32,20 @@ int main()
 		//smooth the image in the "src" and save it to "dst"
 		blur(src, dst, Size(i,i));
 
+		//smooth the image using Gaussian kernel in the "src" and save it to "dst"
+		GaussianBlur(src, gdst, Size(i,i),0,0);
+
 		//put the text in the "zBuffer" to the "dst"image
 		putText(dst, zBuffer, Point(src.cols/4, src.rows/8), CV_FONT_HERSHEY_COMPLEX,1,Scalar(255,255,255));
 
 		//show the blurred image with the text
 		imshow("Smoothed Image", dst);
+
+		putText(gdst, zBuffer, Point(src.cols/4, src.rows/8), CV_FONT_HERSHEY_COMPLEX,1,Scalar(255,255,255));
+
+
+		//show the Gaussian Smooth image
+		imshow("Gaussian Smooth", dst);
 
 		//wait for 2 seconds
 		int c = waitKey(2000);
@@ -50,6 +60,10 @@ int main()
 	//make the "dst" image, black
 	dst = Mat::zeros(src.size(), src.type());
 
+	//make the "dst" image, black
+        gdst = Mat::zeros(src.size(), src.type());
+
+
 	//copy the text to the "zBuffer"
 	snprintf(zBuffer, 35, "Press any key to Exit");
 	
@@ -58,6 +72,12 @@ int main()
 
 	//show the black image with the text
 	imshow("Smoothed Image", dst);
+
+	//put the text in the "zBuffer" to the "dst" image
+        putText(gdst, zBuffer, Point(src.cols/4, src.rows/2), CV_FONT_HERSHEY_COMPLEX,1,Scalar(255,255,255));
+
+	//show the image where gaussian blur is applied
+	imshow("Gaussian Smooth", gdst);
 
 	//wait for a key press infinitely
 	waitKey(0);
